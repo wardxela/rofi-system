@@ -13,18 +13,29 @@ set_volume() {
 }
 
 show_options() {
-  echo -e "\0prompt\x1fSystem"
-  echo -e "Empty Trash\0icon\x1fuser-trash\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
-  echo -e "Set Volume to 0%\0icon\x1faudio-volume-muted-symbolic\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
-  echo -e "Set Volume to 25%\0icon\x1faudio-volume-low-symbolic\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
-  echo -e "Set Volume to 50%\0icon\x1faudio-volume-medium-symbolic\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
-  echo -e "Set Volume to 75%\0icon\x1faudio-volume-high-symbolic\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
-  echo -e "Set Volume to 100%\0icon\x1faudio-volume-overamplified-symbolic\x1fmeta\x1fSystem\x1fmeta\x1fAudio"
+  echo -e "\0prompt\x1f     System"
+  echo -e "Empty Trash\0icon\x1fuser-trash\x1fmeta\x1fSystem"
+  echo -e "Lock Screen\0icon\x1fsystem-lock-screen\x1fmeta\x1fSystem"
+  echo -e "Restart\0icon\x1fsystem-reboot\x1fmeta\x1fSystem\x1fmeta\x1freboot"
+  echo -e "Set Volume to 0%\0icon\x1faudio-volume-muted"
+  echo -e "Set Volume to 25%\0icon\x1faudio-volume-low"
+  echo -e "Set Volume to 50%\0icon\x1faudio-volume-medium"
+  echo -e "Set Volume to 75%\0icon\x1faudio-volume-high"
+  echo -e "Set Volume to 100%\0icon\x1faudio-volume-high"
+  echo -e "Shut Down\0icon\x1fsystem-shutdown\x1fmeta\x1fSystem\x1fmeta\x1fpoweroff"
 }
 
 case $1 in
   'Empty Trash')
     empty_trash
+    exit 0
+    ;;
+  'Lock Screen')
+    swaylock -f
+    exit 0
+    ;;
+  'Restart')
+    systemctl reboot
     exit 0
     ;;
   'Set Volume to 0%')
@@ -45,6 +56,10 @@ case $1 in
     ;;
   'Set Volume to 100%')
     set_volume 1
+    exit 0
+    ;;
+  'Shut Down')
+    systemctl poweroff
     exit 0
     ;;
 esac
