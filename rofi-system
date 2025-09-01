@@ -4,6 +4,8 @@
 ## Author: wardxela @ github
 ## Licence: GPL-3.0
 
+screenshots_path=~/Pictures/Screenshots
+
 empty_trash() {
   rm -rf ~/.local/share/Trash/*
 }
@@ -14,18 +16,38 @@ set_volume() {
 
 show_options() {
   echo -e "\0prompt\x1f     System"
-  echo -e "Empty Trash\0icon\x1fuser-trash\x1fmeta\x1fSystem"
-  echo -e "Lock Screen\0icon\x1fsystem-lock-screen\x1fmeta\x1fSystem"
-  echo -e "Restart\0icon\x1fsystem-reboot\x1fmeta\x1fSystem\x1fmeta\x1freboot"
+  echo -e "Capture Region (Clipboard)\0icon\x1fapplets-screenshooter"
+  echo -e "Capture Region (File)\0icon\x1fapplets-screenshooter"
+  echo -e "Capture Screen (Clipboard)\0icon\x1fapplets-screenshooter"
+  echo -e "Capture Screen (File)\0icon\x1fapplets-screenshooter"
+  echo -e "Empty Trash\0icon\x1fuser-trash"
+  echo -e "Lock Screen\0icon\x1fsystem-lock-screen"
+  echo -e "Restart\0icon\x1fsystem-reboot\x1fmeta\x1freboot"
   echo -e "Set Volume to 0%\0icon\x1faudio-volume-muted"
   echo -e "Set Volume to 25%\0icon\x1faudio-volume-low"
   echo -e "Set Volume to 50%\0icon\x1faudio-volume-medium"
   echo -e "Set Volume to 75%\0icon\x1faudio-volume-high"
   echo -e "Set Volume to 100%\0icon\x1faudio-volume-high"
-  echo -e "Shut Down\0icon\x1fsystem-shutdown\x1fmeta\x1fSystem\x1fmeta\x1fpoweroff"
+  echo -e "Shut Down\0icon\x1fsystem-shutdown\x1fmeta\x1fpoweroff"
 }
 
 case $1 in
+  'Capture Region (Clipboard)')
+    coproc ( flameshot gui --clipboard > /dev/null 2>&1 )
+    exit 0
+    ;;
+  'Capture Region (File)')
+    coproc ( flameshot gui --path $screenshots_path > /dev/null 2>&1 )
+    exit 0
+    ;;
+  'Capture Screen (Clipboard)')
+    flameshot screen --clipboard
+    exit 0
+    ;;
+  'Capture Screen (File)')
+    flameshot screen --path $screenshots_path
+    exit 0
+    ;;
   'Empty Trash')
     empty_trash
     exit 0
